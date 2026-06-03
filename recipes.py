@@ -75,17 +75,44 @@ class DietaryRecipe(Recipe):
     def __str__(self):
         st = "; ".join(str(ingredient) for ingredient in self.ingredients)
         return f"[{self.diet_type}] " + super().__str__()
+    
 
-vegan_pizza = DietaryRecipe(
-    "Пицца Маргарита",
-    "веган"
-)
+class ShoppingList:
+    def __init__(self):
+        self._items = []
 
-vegan_pizza.add_ingredient(Ingredient("Мука", 500, "г"))
-vegan_pizza.add_ingredient(Ingredient("Вода", 300, "мл"))
+    def add_recipe(self, recipe: Recipe, portions: float):
+        if portions <= 0:
+            raise ValueError("Количество порций должно быть положительным")
 
-print(vegan_pizza)
+        scale_recipe = recipe.scale(portions)
 
-double_pizza = vegan_pizza.scale(2)
+        for i in scale_recipe.ingredients:
+            self._items.append((i, recipe.title))
 
-print(double_pizza)
+    def remove_recipe(self, title: str):
+        self._items = [item for item in self._items if item[1] != title]
+
+    def get_list(self):
+        dict = {}
+
+        for ingredient, _ in self._items:
+            key = (ingredient.name, ingredient.unit)
+
+            if key in dict:
+                dict[key] += ingredient.quantity
+            else:
+                dict[key] = ingredient.quantity
+
+        an = [Ingredient(name, quantity, unit) for (name, unit), quantity in dict.items()]
+        an.sort(key=lambda ingredient: ingredient.name)
+
+        return an
+
+    def __add__(self, other):
+        if not isinstance(other, ShoppingList):
+            return NotImplemented
+        an = ShoppingList()
+        an._items = self._items.copy() + other._items.copy()
+
+        return an
