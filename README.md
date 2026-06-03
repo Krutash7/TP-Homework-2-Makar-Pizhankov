@@ -18,8 +18,6 @@
 
 ## Установка
 
-Склонируйте репозиторий:
-
 ```bash
 git clone https://github.com/Krutash7/TP-Homework-2-Makar-Pizhankov.git
 cd TP-Homework-2-Makar-Pizhankov
@@ -34,11 +32,14 @@ pip install -r requirements.txt
 pytest
 ```
 
-Пример создания рецепта:
+Пример создания рецепта в интерактивном интерпретаторе Python:
+
+```bash
+python
+```
 
 ```python
 from recipes import * 
-
 
 recipe = Recipe("Пицца Маргарита")
 recipe.add_ingredient(Ingredient("Мука", 500, "г"))
