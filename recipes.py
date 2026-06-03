@@ -60,3 +60,32 @@ class Recipe:
     def __str__(self):
         st = "; ".join(str(ingredient) for ingredient in self.ingredients)
         return f"{self.title}. Ингредиенты: {st}"
+    
+
+class DietaryRecipe(Recipe):
+    def __init__(self, title: str, diet_type: str, ingredients=None):
+        super().__init__(title, ingredients)
+        self.diet_type = diet_type
+
+    def scale(self, ratio: float):
+        scale_recipe = super().scale(ratio)
+
+        return DietaryRecipe(scale_recipe.title, self.diet_type, scale_recipe.ingredients)
+
+    def __str__(self):
+        st = "; ".join(str(ingredient) for ingredient in self.ingredients)
+        return f"[{self.diet_type}] " + super().__str__()
+
+vegan_pizza = DietaryRecipe(
+    "Пицца Маргарита",
+    "веган"
+)
+
+vegan_pizza.add_ingredient(Ingredient("Мука", 500, "г"))
+vegan_pizza.add_ingredient(Ingredient("Вода", 300, "мл"))
+
+print(vegan_pizza)
+
+double_pizza = vegan_pizza.scale(2)
+
+print(double_pizza)
