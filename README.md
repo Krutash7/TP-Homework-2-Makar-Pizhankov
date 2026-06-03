@@ -22,17 +22,7 @@
 
 ```bash
 git clone https://github.com/Krutash7/TP-Homework-2-Makar-Pizhankov.git
-```
-
-Перейдите в директорию проекта:
-
-```bash
 cd TP-Homework-2-Makar-Pizhankov
-```
-
-Установите зависимости:
-
-```bash
 pip install -r requirements.txt
 ```
 
@@ -47,6 +37,9 @@ pytest
 Пример создания рецепта:
 
 ```python
+from recipes import * 
+
+
 recipe = Recipe("Пицца Маргарита")
 recipe.add_ingredient(Ingredient("Мука", 500, "г"))
 recipe.add_ingredient(Ingredient("Вода", 300, "мл"))
