@@ -73,7 +73,6 @@ class DietaryRecipe(Recipe):
         return DietaryRecipe(scale_recipe.title, self.diet_type, scale_recipe.ingredients)
 
     def __str__(self):
-        st = "; ".join(str(ingredient) for ingredient in self.ingredients)
         return f"[{self.diet_type}] " + super().__str__()
     
 

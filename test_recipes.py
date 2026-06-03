@@ -88,6 +88,8 @@ def test_add_same_ingredient():
 def test_scale(recipe):
     scale = recipe.scale(2)
 
+    assert scale is not recipe
+
     assert scale.ingredients[0].quantity == pytest.approx(1000.0)
     assert scale.ingredients[1].quantity == pytest.approx(600.0)
 
